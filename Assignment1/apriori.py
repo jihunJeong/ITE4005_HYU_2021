@@ -7,88 +7,88 @@ min_spt = float(sys.argv[1])
 
 datas = []
 
+print("Data read ... ", end="")
 f = open('./'+sys.argv[2], 'r', encoding='utf-8')
 rd = csv.reader(f, delimiter='\t')
 for line in rd:
     datas.append(list(map(int, line)))
 
 total = len(datas)
+print("Done")
 
 clist = []
-llist = []
- 
+flist = []
+
+print("Apriori Algorithm Begin")
+
+print("1 itemset ... ", end="", flush=True)
 candidate = defaultdict(int)
 for i in range(len(datas)):
     for j in range(len(datas[i])):
-        candidate[datas[i][j]] += 1
+        candidate[tuple([datas[i][j]])] += 1
 candidate = dict(sorted(candidate.items()))
 clist.append(candidate)
 
-nL = {key:val for key, val in candidate.items() if (val / total)*100 >= min_spt}
-llist.append(nL)
-
-'''
-nc = set(combinations(L1.keys(), 2))
-
-ncandidate = defaultdict(int)
-for i in range(len(data)):
-    for can in nc:
-        if set(can).issubset(set(data[i])):
-            ncandidate[tuple(sorted(can))] += 1
-clist.append(ncandidate)
-
-L2 = {key:round((val / total)*100,2) for key, val in ncandidate.items() if ((val / total)*100 >= min_spt)}
-llist.append(L2)
-'''
+frequent = {key:val for key, val in candidate.items() if (val / total)*100 >= min_spt}
+flist.append(frequent)
+print("Done")
 
 idx = 2
 while True:
+    print(str(idx)+" itemset ... ", end="", flush=True)
     ncandidate = defaultdict(int)
     
-    nc = set()
-    key_list = list(nL.keys())
+    candidate = set()
+    key_list = list(frequent.keys())
+    
     for i in range(len(key_list)):
         for j in range(i+1, len(key_list)):
-            if idx == 2:
-                temp = {key_list[i]} | {key_list[j]}
-            else :
-                temp = set(key_list[i]) | set(key_list[j])
-            nc = nc.union(set(combinations(temp, idx)))
-    nc = sorted(nc)
-
-    for can in nc:
+            temp = set(key_list[i]) | set(key_list[j])
+            temp = sorted(temp)
+            candidate = candidate.union(set(combinations(temp, idx)))
+            
+    candidate = sorted(candidate)
+    
+    for can in candidate:
         temp = list(combinations(can, idx-1))
-        for tp in temp:
-            if idx == 2:
-                tp = tp[0]
-            if tp not in nL.keys():
-                if can in nc:
-                    nc.remove(can)
+        for tp in temp:        
+            if tp not in frequent.keys():
+                if can in candidate:
+                    candidate.remove(can)
 
     for data in datas:
-        for c in nc:
+        for c in candidate:
             if set(c).issubset(set(data)):
                 ncandidate[tuple(sorted(c))] += 1
-    
+                
+    ncandidate = dict(sorted(ncandidate.items()))
     clist.append(ncandidate)
 
-    nL = {key:round((val / total)*100,2) for key, val in ncandidate.items() if ((val / total)*100 >= min_spt)}
+    frequent = {key:val for key, val in ncandidate.items() if ((val / total)*100 >= min_spt)}
     
-    if len(nL.keys()) == 0:
+    if len(frequent.keys()) == 0:
         break
-
-    llist.append(nL)
+    flist.append(frequent)
 
     idx += 1
-
-print(llist[1][(1,8)])
-print(llist[1][(1,9)])
-print(llist[1][(1,10)])
-print(len(llist))
-print(llist[3])
-print(llist[3][(1,3,4,16)])
-for can in clist:
-    pass
-    # csv에 쓰기
+    print("Done")
     
-# candidate, L에 관한 배열을 만들어 이전 자료를 참고할 수 있게 해결
+print("Doesn't exist")
+print("Data write ... ", end="")
+
+with open("./"+sys.argv[3], "w", encoding="utf-8") as csvfile:
+    wr = csv.writer(csvfile, delimiter='\t')
+    for idx, frequent in enumerate(flist):
+        if idx == 0:
+            continue
+        
+        for key, val in frequent.items():
+            for i in range(1, len(key)):
+                item_set = list(sorted(combinations(key, i)))
+                for item in item_set:
+                    association = sorted(list(set(key) - set(item)))
+                    ans1 = [set(item), set(association), "{:.2f}".format(round((val/total)*100,2)), "{:.2f}".format(round((val/flist[len(item)-1][tuple(item)])*100,2))]
+                    wr.writerow(ans1)
+                    
+                
+print("Done")
