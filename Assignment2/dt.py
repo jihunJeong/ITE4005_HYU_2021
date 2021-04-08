@@ -96,7 +96,7 @@ def build_tree(input_data, parent_class, remain_attri):
     elif len(input_data[target].unique()) <= 1:
         # 해당 가지에 목표 Class 종류 1개
         return input_data[target].iloc[0]
-    elif len(remain_attri) <= 0 or len(input_data) <= 2:
+    elif len(remain_attri) <= 0:
         # 해당 가지에서 더 이상 attributes 없을 때 Majority voting
         # 같다면 같은 속성 중 원 DF에서 확률 큰 값
         return select_max_class(input_data[target].value_counts())
@@ -163,7 +163,7 @@ if __name__ == "__main__":
         for idx in range(Epoches):
             print(f"Forest {idx+1} ... ", end= "")
             rand_df = train_df.sample(frac=1, replace=False)
-            tree = build_tree(train_df, None, list(train_df.columns[:-1]))
+            tree = build_tree(rand_df, None, list(rand_df.columns[:-1]))
             trees.append(tree)
             print("Done")
         
@@ -198,6 +198,7 @@ if __name__ == "__main__":
         print(346-cnt)
         
         if cnt < min_error:
+            min_error = cnt
             print("Save Model")
             test_df.to_csv('./test/'+out, sep='\t')
     print(mean/10)
