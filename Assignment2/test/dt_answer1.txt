@@ -1,347 +1,347 @@
-buying	maint	doors	persons	lug_boot	safety	car_evaluation
-med	vhigh	2	4	med	med	unacc
-low	high	4	4	small	low	unacc
-high	vhigh	4	4	med	med	unacc
-high	vhigh	4	more	big	low	unacc
-low	high	3	more	med	low	unacc
-med	high	2	more	small	high	unacc
-vhigh	low	3	2	med	high	unacc
-med	high	2	4	small	low	unacc
-med	low	5more	4	small	med	acc
-med	low	5more	2	big	med	unacc
-med	low	4	more	big	high	vgood
-low	low	4	2	big	high	unacc
-low	low	3	more	med	low	unacc
-high	med	2	2	big	high	unacc
-high	low	4	more	small	low	unacc
-med	vhigh	3	4	med	med	unacc
-low	low	3	more	small	high	good
-vhigh	med	2	more	med	med	unacc
-vhigh	low	4	more	big	high	acc
-vhigh	low	2	2	small	high	unacc
-high	high	5more	2	big	med	unacc
-high	med	5more	2	med	low	unacc
-med	med	3	2	big	high	unacc
-low	vhigh	5more	2	small	low	unacc
-vhigh	vhigh	3	more	small	high	unacc
-low	high	2	more	big	med	acc
-vhigh	vhigh	5more	more	small	high	unacc
-high	low	5more	4	small	med	unacc
-low	med	4	2	big	low	unacc
-med	vhigh	3	2	small	med	unacc
-med	high	4	more	small	med	unacc
-vhigh	low	4	4	big	low	unacc
-high	low	5more	4	big	med	acc
-low	vhigh	3	more	small	med	unacc
-vhigh	low	5more	2	small	low	unacc
-low	vhigh	2	2	med	med	unacc
-med	med	4	4	big	low	unacc
-med	high	4	more	big	high	acc
-high	high	5more	4	big	high	acc
-med	vhigh	4	more	med	low	unacc
-low	med	3	4	small	high	good
-vhigh	med	3	2	med	low	unacc
-med	high	5more	more	big	med	acc
-med	med	2	4	small	high	acc
-high	high	3	2	med	med	unacc
-high	med	4	4	med	high	acc
-vhigh	high	5more	2	small	high	unacc
-vhigh	vhigh	3	4	med	high	unacc
-low	low	2	more	med	high	good
-vhigh	high	4	2	med	high	unacc
-high	vhigh	3	4	small	low	unacc
-vhigh	med	4	4	med	med	acc
-vhigh	vhigh	2	4	med	low	unacc
-med	med	5more	4	med	low	unacc
-high	med	5more	more	big	low	unacc
-low	vhigh	3	2	small	low	unacc
-low	med	3	2	big	med	unacc
-vhigh	med	3	2	small	high	unacc
-vhigh	high	3	more	med	med	unacc
-vhigh	low	3	2	big	high	unacc
-high	high	2	2	small	high	unacc
-low	vhigh	4	4	small	high	acc
-med	low	5more	2	small	low	unacc
-med	high	2	2	big	low	unacc
-med	high	2	4	big	low	unacc
-high	vhigh	2	more	small	med	unacc
-med	med	3	2	med	med	unacc
-med	low	2	more	med	high	good
-high	med	4	more	med	med	acc
-low	med	4	4	small	low	unacc
-med	med	3	2	med	low	unacc
-high	med	3	2	med	med	unacc
-high	vhigh	5more	more	med	med	unacc
-high	vhigh	2	2	small	med	unacc
-vhigh	vhigh	4	more	small	low	unacc
-low	low	4	more	big	high	vgood
-low	low	5more	2	big	high	unacc
-vhigh	med	2	4	big	low	unacc
-vhigh	med	2	2	small	high	unacc
-vhigh	high	5more	more	small	high	unacc
-vhigh	low	5more	2	med	low	unacc
-low	low	2	2	med	med	unacc
-high	low	3	4	med	med	unacc
-low	low	4	4	big	high	vgood
-high	vhigh	2	more	med	low	unacc
-high	high	4	more	big	high	acc
-med	vhigh	2	2	small	high	unacc
-high	high	2	2	med	low	unacc
-med	med	4	more	small	low	unacc
-med	med	4	more	med	med	acc
-high	low	4	4	big	high	acc
-high	low	5more	4	small	low	unacc
-low	low	3	2	small	high	unacc
-med	low	2	4	big	high	vgood
-low	high	2	4	small	high	acc
-med	med	2	2	big	high	unacc
-vhigh	high	5more	more	big	high	unacc
-vhigh	med	4	more	big	low	unacc
-low	vhigh	4	more	small	med	unacc
-high	low	4	2	big	low	unacc
-med	vhigh	5more	4	small	high	acc
-high	high	4	more	small	med	unacc
-high	med	4	2	med	high	unacc
-med	vhigh	2	more	med	low	unacc
-vhigh	low	3	2	small	med	unacc
-low	med	5more	4	small	med	acc
-med	vhigh	4	2	med	high	unacc
-med	vhigh	3	2	small	low	unacc
-vhigh	med	4	2	big	high	unacc
-high	vhigh	3	2	small	low	unacc
-med	high	5more	2	small	med	unacc
-low	vhigh	5more	2	big	med	unacc
-med	med	3	2	big	low	unacc
-high	vhigh	3	4	big	med	unacc
-vhigh	vhigh	5more	more	small	low	unacc
-high	vhigh	4	4	med	high	unacc
-med	high	3	more	small	low	unacc
-vhigh	vhigh	3	4	small	low	unacc
-low	vhigh	2	more	small	low	unacc
-med	vhigh	3	more	small	high	acc
-med	low	5more	more	big	high	vgood
-high	high	4	more	big	med	acc
-low	low	2	more	big	med	good
-low	high	4	4	small	high	acc
-vhigh	low	3	4	small	high	acc
-vhigh	vhigh	2	2	small	med	unacc
-vhigh	high	3	more	small	high	unacc
-low	med	2	more	small	high	unacc
-low	vhigh	4	2	med	med	unacc
-vhigh	low	3	2	big	med	unacc
-vhigh	low	5more	more	small	med	unacc
-vhigh	med	2	2	big	high	unacc
-vhigh	high	2	more	med	low	unacc
-low	vhigh	4	2	med	high	unacc
-low	med	5more	2	small	low	unacc
-high	vhigh	5more	4	small	high	unacc
-med	med	5more	more	big	high	vgood
-vhigh	low	2	4	med	high	acc
-vhigh	med	2	2	med	low	unacc
-low	low	5more	4	small	low	unacc
-vhigh	vhigh	3	4	big	high	unacc
-high	med	3	4	med	med	unacc
-low	low	5more	2	med	high	unacc
-vhigh	vhigh	3	more	med	low	unacc
-med	med	5more	2	small	low	unacc
-low	low	2	2	small	low	unacc
-med	vhigh	2	4	big	low	unacc
-high	vhigh	3	4	big	high	unacc
-med	low	3	4	big	med	good
-low	vhigh	2	4	med	low	unacc
-low	high	5more	2	big	low	unacc
-high	med	2	2	med	high	unacc
-high	vhigh	5more	more	small	high	unacc
-vhigh	vhigh	2	4	big	low	unacc
-high	med	3	4	small	low	unacc
-vhigh	high	4	2	small	med	unacc
-med	med	5more	2	big	low	unacc
-vhigh	low	4	more	small	med	unacc
-med	low	4	more	small	med	acc
-high	high	3	more	small	high	acc
-med	low	4	more	big	low	unacc
-med	high	3	2	med	med	unacc
-vhigh	vhigh	4	more	med	high	unacc
-low	high	5more	4	med	med	acc
-high	vhigh	5more	4	med	low	unacc
-high	med	4	more	small	high	acc
-med	med	3	more	med	low	unacc
-high	vhigh	4	4	small	low	unacc
-med	high	2	2	med	med	unacc
-low	vhigh	4	2	small	med	unacc
-vhigh	med	4	more	med	med	acc
-med	high	3	4	med	high	acc
-high	med	3	more	big	low	unacc
-vhigh	low	2	more	med	high	acc
-med	vhigh	5more	4	big	low	unacc
-high	vhigh	3	more	small	med	unacc
-low	low	3	4	big	med	good
-vhigh	vhigh	2	4	small	high	unacc
-vhigh	low	3	4	med	med	unacc
-vhigh	vhigh	5more	4	small	high	unacc
-high	high	4	2	med	low	unacc
-low	high	3	4	med	med	acc
-med	high	2	more	big	med	acc
-low	high	4	more	big	low	unacc
-low	low	4	4	small	med	acc
-med	high	2	2	small	low	unacc
-med	vhigh	5more	more	small	high	acc
-med	low	5more	4	small	low	unacc
-low	low	3	4	small	high	good
-low	low	2	4	med	low	unacc
-vhigh	low	2	4	big	med	acc
-low	med	2	4	med	high	good
-low	vhigh	5more	2	small	med	unacc
-med	vhigh	4	more	small	low	unacc
-high	high	5more	more	med	med	acc
-med	high	3	more	med	low	unacc
-med	low	2	4	small	med	acc
-high	vhigh	3	4	big	low	unacc
-vhigh	vhigh	4	2	big	high	unacc
-low	med	4	2	big	med	unacc
-low	vhigh	4	4	med	low	unacc
-low	med	2	2	med	med	unacc
-vhigh	low	3	more	med	low	unacc
-high	med	3	more	big	high	acc
-med	low	5more	2	small	med	unacc
-vhigh	med	4	4	med	high	acc
-vhigh	vhigh	4	more	small	med	unacc
-low	med	2	more	small	low	unacc
-low	vhigh	2	4	big	low	unacc
-med	high	4	more	med	high	acc
-vhigh	med	5more	4	big	med	acc
-low	med	3	4	big	low	unacc
-vhigh	low	3	4	med	low	unacc
-med	med	3	2	small	low	unacc
-low	med	3	more	small	low	unacc
-low	low	5more	more	med	high	vgood
-high	vhigh	3	4	med	high	unacc
-med	low	5more	more	big	med	good
-vhigh	low	5more	more	big	med	acc
-high	high	4	4	med	med	acc
-high	med	5more	4	small	med	unacc
-med	vhigh	5more	2	small	low	unacc
-low	low	5more	more	small	med	acc
-low	vhigh	5more	4	small	high	acc
-high	vhigh	4	4	big	high	unacc
-low	med	4	more	med	high	vgood
-low	vhigh	3	4	med	high	acc
-high	low	3	4	big	low	unacc
-vhigh	med	5more	2	small	high	unacc
-high	med	4	2	big	high	unacc
-low	med	3	more	small	high	good
-med	med	4	more	small	med	acc
-low	med	4	more	small	high	good
-high	med	5more	4	big	med	acc
-med	low	3	2	small	high	unacc
-high	high	3	4	small	high	acc
-vhigh	med	3	2	med	med	unacc
-low	med	2	2	small	low	unacc
-med	low	3	4	small	med	acc
-high	low	2	4	med	high	acc
-low	low	2	2	small	med	unacc
-vhigh	high	2	4	big	med	unacc
-high	med	2	2	big	med	unacc
-high	low	3	4	big	med	acc
-low	med	3	4	med	high	good
-high	low	5more	more	big	med	acc
-low	med	3	more	med	med	good
-med	med	4	4	big	high	vgood
-vhigh	high	3	4	med	low	unacc
-med	vhigh	5more	more	big	low	unacc
-vhigh	high	3	2	big	med	unacc
-med	med	5more	more	big	low	unacc
-vhigh	vhigh	2	more	med	high	unacc
-vhigh	vhigh	3	2	big	high	unacc
-high	med	5more	4	big	high	acc
-med	high	3	2	big	low	unacc
-high	vhigh	5more	2	med	low	unacc
-high	high	5more	4	big	low	unacc
-low	low	4	more	small	high	good
-med	vhigh	3	more	med	med	acc
-med	high	5more	more	med	low	unacc
-vhigh	vhigh	4	more	small	high	unacc
-vhigh	vhigh	4	4	small	med	unacc
-low	low	3	more	small	low	unacc
-vhigh	med	3	2	med	high	unacc
-vhigh	med	3	2	big	low	unacc
-high	low	4	more	med	med	acc
-vhigh	med	5more	4	small	med	unacc
-high	med	2	4	med	low	unacc
-vhigh	high	2	2	small	med	unacc
-low	vhigh	4	4	small	med	unacc
-high	high	5more	4	med	med	acc
-med	vhigh	2	more	small	high	unacc
-high	vhigh	3	4	small	med	unacc
-high	med	2	4	big	med	acc
-low	med	2	4	small	low	unacc
-vhigh	low	2	4	med	low	unacc
-med	high	2	4	small	high	acc
-vhigh	low	5more	4	med	high	acc
-med	med	4	4	small	high	acc
-med	vhigh	3	4	big	low	unacc
-high	low	3	more	big	low	unacc
-med	vhigh	3	4	small	med	unacc
-vhigh	low	3	more	med	high	acc
-med	med	3	2	big	med	unacc
-vhigh	high	5more	2	big	med	unacc
-low	high	3	4	med	high	acc
-high	low	4	2	med	med	unacc
-med	med	2	2	small	high	unacc
-vhigh	med	3	4	med	low	unacc
-high	med	4	2	big	med	unacc
-low	low	2	4	med	med	acc
-high	vhigh	5more	more	small	low	unacc
-high	vhigh	4	2	small	low	unacc
-med	low	5more	2	med	low	unacc
-high	med	2	more	med	high	acc
-low	low	3	more	med	high	vgood
-med	high	3	more	small	high	acc
-vhigh	high	3	2	big	low	unacc
-vhigh	low	2	more	big	med	acc
-vhigh	low	3	more	small	low	unacc
-high	low	5more	4	small	high	acc
-vhigh	med	5more	more	big	med	acc
-med	high	5more	4	med	low	unacc
-low	vhigh	5more	2	med	med	unacc
-med	low	5more	2	big	low	unacc
-low	high	2	more	small	med	unacc
-low	high	5more	2	med	low	unacc
-high	low	5more	more	big	low	unacc
-vhigh	high	4	4	med	high	unacc
-low	vhigh	2	2	small	med	unacc
-med	low	4	4	small	med	acc
-high	high	4	more	med	high	acc
-med	med	5more	4	med	high	vgood
-low	high	3	2	big	low	unacc
-high	med	3	more	big	med	acc
-high	low	2	2	small	low	unacc
-vhigh	vhigh	4	2	med	low	unacc
-low	high	2	4	med	high	acc
-vhigh	low	4	more	med	med	acc
-high	high	4	more	small	low	unacc
-med	low	3	more	small	med	acc
-med	med	5more	4	big	low	unacc
-med	high	3	4	small	med	unacc
-med	low	2	2	med	med	unacc
-med	med	2	4	big	med	acc
-vhigh	med	2	more	med	low	unacc
-high	high	5more	more	big	low	unacc
-vhigh	med	4	4	small	high	acc
-low	med	3	more	small	med	acc
-vhigh	vhigh	3	4	small	med	unacc
-low	low	3	4	med	high	good
-high	high	3	2	small	high	unacc
-med	high	5more	2	med	high	unacc
-high	med	2	4	small	low	unacc
-high	med	2	more	big	med	acc
-low	med	3	2	med	med	unacc
-low	low	4	more	med	high	vgood
-high	vhigh	2	4	med	med	unacc
-med	vhigh	2	2	small	med	unacc
-high	high	4	4	med	high	acc
-vhigh	low	4	4	small	high	acc
-vhigh	low	3	4	big	low	unacc
-high	high	3	4	big	med	acc
-med	low	5more	4	big	med	good
-vhigh	high	5more	more	med	med	unacc
+	buying	maint	doors	persons	lug_boot	safety	car_evaluation
+0	1	2	1	0	2	1	unacc
+1	2	0	3	0	1	0	unacc
+2	0	2	3	0	2	1	unacc
+3	0	2	3	2	0	0	unacc
+4	2	0	0	2	2	0	unacc
+5	1	0	1	2	1	2	unacc
+6	3	3	0	1	2	2	unacc
+7	1	0	1	0	1	0	unacc
+8	1	3	2	0	1	1	acc
+9	1	3	2	1	0	1	unacc
+10	1	3	3	2	0	2	vgood
+11	2	3	3	1	0	2	unacc
+12	2	3	0	2	2	0	unacc
+13	0	1	1	1	0	2	unacc
+14	0	3	3	2	1	0	unacc
+15	1	2	0	0	2	1	unacc
+16	2	3	0	2	1	2	good
+17	3	1	1	2	2	1	unacc
+18	3	3	3	2	0	2	acc
+19	3	3	1	1	1	2	unacc
+20	0	0	2	1	0	1	unacc
+21	0	1	2	1	2	0	unacc
+22	1	1	0	1	0	2	unacc
+23	2	2	2	1	1	0	unacc
+24	3	2	0	2	1	2	unacc
+25	2	0	1	2	0	1	acc
+26	3	2	2	2	1	2	unacc
+27	0	3	2	0	1	1	unacc
+28	2	1	3	1	0	0	unacc
+29	1	2	0	1	1	1	unacc
+30	1	0	3	2	1	1	unacc
+31	3	3	3	0	0	0	unacc
+32	0	3	2	0	0	1	acc
+33	2	2	0	2	1	1	unacc
+34	3	3	2	1	1	0	unacc
+35	2	2	1	1	2	1	unacc
+36	1	1	3	0	0	0	unacc
+37	1	0	3	2	0	2	acc
+38	0	0	2	0	0	2	acc
+39	1	2	3	2	2	0	unacc
+40	2	1	0	0	1	2	good
+41	3	1	0	1	2	0	unacc
+42	1	0	2	2	0	1	acc
+43	1	1	1	0	1	2	unacc
+44	0	0	0	1	2	1	unacc
+45	0	1	3	0	2	2	acc
+46	3	0	2	1	1	2	unacc
+47	3	2	0	0	2	2	unacc
+48	2	3	1	2	2	2	good
+49	3	0	3	1	2	2	unacc
+50	0	2	0	0	1	0	unacc
+51	3	1	3	0	2	1	acc
+52	3	2	1	0	2	0	unacc
+53	1	1	2	0	2	0	unacc
+54	0	1	2	2	0	0	unacc
+55	2	2	0	1	1	0	unacc
+56	2	1	0	1	0	1	unacc
+57	3	1	0	1	1	2	unacc
+58	3	0	0	2	2	1	unacc
+59	3	3	0	1	0	2	unacc
+60	0	0	1	1	1	2	unacc
+61	2	2	3	0	1	2	acc
+62	1	3	2	1	1	0	unacc
+63	1	0	1	1	0	0	unacc
+64	1	0	1	0	0	0	unacc
+65	0	2	1	2	1	1	unacc
+66	1	1	0	1	2	1	unacc
+67	1	3	1	2	2	2	good
+68	0	1	3	2	2	1	acc
+69	2	1	3	0	1	0	unacc
+70	1	1	0	1	2	0	unacc
+71	0	1	0	1	2	1	unacc
+72	0	2	2	2	2	1	unacc
+73	0	2	1	1	1	1	unacc
+74	3	2	3	2	1	0	unacc
+75	2	3	3	2	0	2	vgood
+76	2	3	2	1	0	2	unacc
+77	3	1	1	0	0	0	unacc
+78	3	1	1	1	1	2	unacc
+79	3	0	2	2	1	2	unacc
+80	3	3	2	1	2	0	unacc
+81	2	3	1	1	2	1	unacc
+82	0	3	0	0	2	1	unacc
+83	2	3	3	0	0	2	vgood
+84	0	2	1	2	2	0	unacc
+85	0	0	3	2	0	2	acc
+86	1	2	1	1	1	2	unacc
+87	0	0	1	1	2	0	unacc
+88	1	1	3	2	1	0	unacc
+89	1	1	3	2	2	1	acc
+90	0	3	3	0	0	2	acc
+91	0	3	2	0	1	0	unacc
+92	2	3	0	1	1	2	unacc
+93	1	3	1	0	0	2	vgood
+94	2	0	1	0	1	2	acc
+95	1	1	1	1	0	2	unacc
+96	3	0	2	2	0	2	unacc
+97	3	1	3	2	0	0	unacc
+98	2	2	3	2	1	1	unacc
+99	0	3	3	1	0	0	unacc
+100	1	2	2	0	1	2	acc
+101	0	0	3	2	1	1	unacc
+102	0	1	3	1	2	2	unacc
+103	1	2	1	2	2	0	unacc
+104	3	3	0	1	1	1	unacc
+105	2	1	2	0	1	1	acc
+106	1	2	3	1	2	2	unacc
+107	1	2	0	1	1	0	unacc
+108	3	1	3	1	0	2	unacc
+109	0	2	0	1	1	0	unacc
+110	1	0	2	1	1	1	unacc
+111	2	2	2	1	0	1	unacc
+112	1	1	0	1	0	0	unacc
+113	0	2	0	0	0	1	unacc
+114	3	2	2	2	1	0	unacc
+115	0	2	3	0	2	2	unacc
+116	1	0	0	2	1	0	unacc
+117	3	2	0	0	1	0	unacc
+118	2	2	1	2	1	0	unacc
+119	1	2	0	2	1	2	acc
+120	1	3	2	2	0	2	vgood
+121	0	0	3	2	0	1	acc
+122	2	3	1	2	0	1	good
+123	2	0	3	0	1	2	acc
+124	3	3	0	0	1	2	acc
+125	3	2	1	1	1	1	unacc
+126	3	0	0	2	1	2	unacc
+127	2	1	1	2	1	2	good
+128	2	2	3	1	2	1	unacc
+129	3	3	0	1	0	1	unacc
+130	3	3	2	2	1	1	unacc
+131	3	1	1	1	0	2	unacc
+132	3	0	1	2	2	0	unacc
+133	2	2	3	1	2	2	unacc
+134	2	1	2	1	1	0	unacc
+135	0	2	2	0	1	2	unacc
+136	1	1	2	2	0	2	vgood
+137	3	3	1	0	2	2	acc
+138	3	1	1	1	2	0	unacc
+139	2	3	2	0	1	0	unacc
+140	3	2	0	0	0	2	unacc
+141	0	1	0	0	2	1	unacc
+142	2	3	2	1	2	2	unacc
+143	3	2	0	2	2	0	unacc
+144	1	1	2	1	1	0	unacc
+145	2	3	1	1	1	0	unacc
+146	1	2	1	0	0	0	unacc
+147	0	2	0	0	0	2	unacc
+148	1	3	0	0	0	1	acc
+149	2	2	1	0	2	0	unacc
+150	2	0	2	1	0	0	unacc
+151	0	1	1	1	2	2	unacc
+152	0	2	2	2	1	2	unacc
+153	3	2	1	0	0	0	unacc
+154	0	1	0	0	1	0	unacc
+155	3	0	3	1	1	1	unacc
+156	1	1	2	1	0	0	unacc
+157	3	3	3	2	1	1	unacc
+158	1	3	3	2	1	1	acc
+159	0	0	0	2	1	2	acc
+160	1	3	3	2	0	0	unacc
+161	1	0	0	1	2	1	unacc
+162	3	2	3	2	2	2	unacc
+163	2	0	2	0	2	1	acc
+164	0	2	2	0	2	0	unacc
+165	0	1	3	2	1	2	acc
+166	1	1	0	2	2	0	unacc
+167	0	2	3	0	1	0	unacc
+168	1	0	1	1	2	1	unacc
+169	2	2	3	1	1	1	unacc
+170	3	1	3	2	2	1	acc
+171	1	0	0	0	2	2	unacc
+172	0	1	0	2	0	0	unacc
+173	3	3	1	2	2	2	acc
+174	1	2	2	0	0	0	unacc
+175	0	2	0	2	1	1	unacc
+176	2	3	0	0	0	1	good
+177	3	2	1	0	1	2	unacc
+178	3	3	0	0	2	1	unacc
+179	3	2	2	0	1	2	unacc
+180	0	0	3	1	2	0	unacc
+181	2	0	0	0	2	1	acc
+182	1	0	1	2	0	1	acc
+183	2	0	3	2	0	0	unacc
+184	2	3	3	0	1	1	acc
+185	1	0	1	1	1	0	unacc
+186	1	2	2	2	1	2	acc
+187	1	3	2	0	1	0	unacc
+188	2	3	0	0	1	2	good
+189	2	3	1	0	2	0	unacc
+190	3	3	1	0	0	1	acc
+191	2	1	1	0	2	2	good
+192	2	2	2	1	1	1	unacc
+193	1	2	3	2	1	0	unacc
+194	0	0	2	2	2	1	acc
+195	1	0	0	2	2	0	unacc
+196	1	3	1	0	1	1	acc
+197	0	2	0	0	0	0	unacc
+198	3	2	3	1	0	2	unacc
+199	2	1	3	1	0	1	unacc
+200	2	2	3	0	2	0	unacc
+201	2	1	1	1	2	1	unacc
+202	3	3	0	2	2	0	unacc
+203	0	1	0	2	0	2	acc
+204	1	3	2	1	1	1	unacc
+205	3	1	3	0	2	2	acc
+206	3	2	3	2	1	1	unacc
+207	2	1	1	2	1	0	unacc
+208	2	2	1	0	0	0	unacc
+209	1	0	3	2	2	2	acc
+210	3	1	2	0	0	1	acc
+211	2	1	0	0	0	0	unacc
+212	3	3	0	0	2	0	unacc
+213	1	1	0	1	1	0	unacc
+214	2	1	0	2	1	0	unacc
+215	2	3	2	2	2	2	vgood
+216	0	2	0	0	2	2	unacc
+217	1	3	2	2	0	1	good
+218	3	3	2	2	0	1	acc
+219	0	0	3	0	2	1	unacc
+220	0	1	2	0	1	1	unacc
+221	1	2	2	1	1	0	unacc
+222	2	3	2	2	1	1	acc
+223	2	2	2	0	1	2	acc
+224	0	2	3	0	0	2	unacc
+225	2	1	3	2	2	2	vgood
+226	2	2	0	0	2	2	acc
+227	0	3	0	0	0	0	unacc
+228	3	1	2	1	1	2	unacc
+229	0	1	3	1	0	2	unacc
+230	2	1	0	2	1	2	good
+231	1	1	3	2	1	1	acc
+232	2	1	3	2	1	2	good
+233	0	1	2	0	0	1	acc
+234	1	3	0	1	1	2	unacc
+235	0	0	0	0	1	2	acc
+236	3	1	0	1	2	1	unacc
+237	2	1	1	1	1	0	unacc
+238	1	3	0	0	1	1	acc
+239	0	3	1	0	2	2	acc
+240	2	3	1	1	1	1	unacc
+241	3	0	1	0	0	1	unacc
+242	0	1	1	1	0	1	unacc
+243	0	3	0	0	0	1	acc
+244	2	1	0	0	2	2	acc
+245	0	3	2	2	0	1	acc
+246	2	1	0	2	2	1	acc
+247	1	1	3	0	0	2	vgood
+248	3	0	0	0	2	0	unacc
+249	1	2	2	2	0	0	unacc
+250	3	0	0	1	0	1	unacc
+251	1	1	2	2	0	0	unacc
+252	3	2	1	2	2	2	unacc
+253	3	2	0	1	0	2	unacc
+254	0	1	2	0	0	2	acc
+255	1	0	0	1	0	0	unacc
+256	0	2	2	1	2	0	unacc
+257	0	0	2	0	0	0	unacc
+258	2	3	3	2	1	2	good
+259	1	2	0	2	2	1	acc
+260	1	0	2	2	2	0	unacc
+261	3	2	3	2	1	2	unacc
+262	3	2	3	0	1	1	unacc
+263	2	3	0	2	1	0	unacc
+264	3	1	0	1	2	2	unacc
+265	3	1	0	1	0	0	unacc
+266	0	3	3	2	2	1	acc
+267	3	1	2	0	1	1	unacc
+268	0	1	1	0	2	0	unacc
+269	3	0	1	1	1	1	unacc
+270	2	2	3	0	1	1	unacc
+271	0	0	2	0	2	1	unacc
+272	1	2	1	2	1	2	unacc
+273	0	2	0	0	1	1	unacc
+274	0	1	1	0	0	1	acc
+275	2	1	1	0	1	0	unacc
+276	3	3	1	0	2	0	unacc
+277	1	0	1	0	1	2	acc
+278	3	3	2	0	2	2	acc
+279	1	1	3	0	1	2	acc
+280	1	2	0	0	0	0	unacc
+281	0	3	0	2	0	0	unacc
+282	1	2	0	0	1	1	unacc
+283	3	3	0	2	2	2	acc
+284	1	1	0	1	0	1	unacc
+285	3	0	2	1	0	1	unacc
+286	2	0	0	0	2	2	vgood
+287	0	3	3	1	2	1	unacc
+288	1	1	1	1	1	2	unacc
+289	3	1	0	0	2	0	unacc
+290	0	1	3	1	0	1	unacc
+291	2	3	1	0	2	1	acc
+292	0	2	2	2	1	0	unacc
+293	0	2	3	1	1	0	unacc
+294	1	3	2	1	2	0	unacc
+295	0	1	1	2	2	2	acc
+296	2	3	0	2	2	2	vgood
+297	1	0	0	2	1	2	acc
+298	3	0	0	1	0	0	unacc
+299	3	3	1	2	0	1	acc
+300	3	3	0	2	1	0	unacc
+301	0	3	2	0	1	2	acc
+302	3	1	2	2	0	1	acc
+303	1	0	2	0	2	0	unacc
+304	2	2	2	1	2	1	unacc
+305	1	3	2	1	0	0	unacc
+306	2	0	1	2	1	1	acc
+307	2	0	2	1	2	0	unacc
+308	0	3	2	2	0	0	unacc
+309	3	0	3	0	2	2	unacc
+310	2	2	1	1	1	1	unacc
+311	1	3	3	0	1	1	acc
+312	0	0	3	2	2	2	acc
+313	1	1	2	0	2	2	vgood
+314	2	0	0	1	0	0	unacc
+315	0	1	0	2	0	1	acc
+316	0	3	1	1	1	0	unacc
+317	3	2	3	1	2	0	unacc
+318	2	0	1	0	2	2	acc
+319	3	3	3	2	2	1	acc
+320	0	0	3	2	1	0	unacc
+321	1	3	0	2	1	1	acc
+322	1	1	2	0	0	0	unacc
+323	1	0	0	0	1	1	unacc
+324	1	3	1	1	2	1	unacc
+325	1	1	1	0	0	1	acc
+326	3	1	1	2	2	0	unacc
+327	0	0	2	2	0	0	unacc
+328	3	1	3	0	1	2	acc
+329	2	1	0	2	1	1	acc
+330	3	2	0	0	1	1	unacc
+331	2	3	0	0	2	2	good
+332	0	0	0	1	1	2	unacc
+333	1	0	2	1	2	2	unacc
+334	0	1	1	0	1	0	unacc
+335	0	1	1	2	0	1	acc
+336	2	1	0	1	2	1	unacc
+337	2	3	3	2	2	2	vgood
+338	0	2	1	0	2	1	unacc
+339	1	2	1	1	1	1	unacc
+340	0	0	3	0	2	2	acc
+341	3	3	3	0	1	2	acc
+342	3	3	0	0	0	0	unacc
+343	0	0	0	0	0	1	acc
+344	1	3	2	0	0	1	good
+345	3	0	2	2	2	1	unacc

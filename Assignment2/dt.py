@@ -1,10 +1,11 @@
 import sys
 import math
 import copy
-from numpy import split
+import numpy as np
 import pandas as pd
 import random
 from collections import defaultdict, Counter
+from itertools import combinations
 
 sys.setrecursionlimit(10**6)
 
@@ -22,7 +23,6 @@ class DecisionTree:
 
 def entropy(input_data):
     global target 
-    
     info = 0
     cnt = dict(input_data[target].value_counts())
 
@@ -54,7 +54,6 @@ def split_info(input_data, attri):
 
 def gini(input_data):
     global target
-    
     gini = 1
     cnt = dict(input_data[target].value_counts())
 
@@ -67,36 +66,30 @@ def gini_index(input_data, attri):
     gini_before = gini(input_data)
     type_list = sorted(input_data[attri].unique())
     min_gini = 100000000
-    
-    for tp in type_list:
-        is_tp_key = input_data[attri] <= tp
-        is_df = input_data.loc[is_tp_key]
-        not_df = input_data.drop(is_df.index)
-        gini_attri = (gini(is_df)*len(is_df) + gini(not_df)*len(not_df))/len(input_data)
-    
-        if min_gini > gini_attri:
-            min_gini = gini_attri
-            ans_class = tp
-            
+    for num in range(1, len(type_list)//2+1):
+        for tp_set in list(combinations(type_list, num)):
+            index_dict = dict()
+            for idx, val in input_data[attri].items():
+                index_dict[idx] = False
+                if val in tp_set:
+                    index_dict[idx] = True
+
+            is_df = input_data.loc[pd.Series(index_dict)]
+            not_df = input_data.drop(is_df.index)
+            gini_attri = (gini(is_df)*len(is_df) + gini(not_df)*len(not_df))/len(input_data)
+
+            if min_gini > gini_attri:
+                min_gini = gini_attri
+                ans_class = tp_set
+                
     return gini_before - min_gini, ans_class
 
 def select_attribute(input_data):
     max_gain, max_gini = 0, 0
     ans, ans_class = None, None
     for attri in list(input_data.columns[:-1]):
-        '''
-        attri_info = information_gain(input_data, attri)
-        spli_info = split_info(input_data, attri)
-        
-        if spli_info == 0:
-            return attri
-        
-        gain_ratio = attri_info / split_info(input_data, attri)
-            
-        if max_gain < gain_ratio:
-            max_gain = gain_ratio
-            ans = attri
-        '''
+        if len(input_data[attri].unique()) == 1:
+            continue
         gini_delta, split_class = gini_index(input_data, attri)
         if max_gini < gini_delta:
             max_gini = gini_delta
@@ -130,7 +123,7 @@ def build_tree(input_data, parent_class, depth):
     elif len(input_data[target].unique()) <= 1:
         # 해당 가지에 목표 Class 종류 1개
         return input_data[target].iloc[0]
-    elif depth > 10:
+    elif len(input_data) <= 3:
         # 해당 가지에서 더 이상 attributes 없을 때 Majority voting
         # 같다면 같은 속성 중 원 DF에서 확률 큰 값
         return select_max_class(input_data[target].value_counts())
@@ -140,18 +133,19 @@ def build_tree(input_data, parent_class, depth):
     if select_attri is None:
         return select_max_class(input_data[target].value_counts())
     
-    '''
-    cp_attri = copy.deepcopy(remain_attri)
-    cp_attri.remove(select_attri)
-    '''
     tree.add_attribute(select_attri)
     
     # Max값이 여러개일떄 Random으로 위에것 가져온다 추후 변경 필요
     parent_class = select_max_class(input_data[target].value_counts())
     tree.ans = parent_class
     
-    is_element_index = input_data[select_attri] <= select_class
-    select_data = input_data[is_element_index]
+    index_dict = dict()
+    for idx, val in input_data[select_attri].items():
+        index_dict[idx] = False
+        if val in select_class:
+            index_dict[idx] = True
+
+    select_data = input_data.loc[pd.Series(index_dict)]
     not_select_data = input_data.drop(select_data.index)
     left_subtree = build_tree(select_data, parent_class, depth+1)
     right_subtree = build_tree(not_select_data, parent_class, depth+1)
@@ -161,17 +155,15 @@ def build_tree(input_data, parent_class, depth):
     return tree
 
 def classify(tree, input):
-    print(tree.attribute)
-    print(tree.child)
     for key in tree.child.keys():
         if key != 'other':
-            if key < input[tree.attribute]:
-                ans = 'other'
-            else :
+            if input[tree.attribute] in key:
                 ans = key
-    print(ans)  
+            else :
+                ans = 'other'
+    
     if (type(tree.child[ans]) is str or 
-        type(tree.child[ans]) is int):
+        type(tree.child[ans]) is np.int64):
         return tree.child[ans]
 
     return classify(tree.child[ans], input)
@@ -185,6 +177,7 @@ def print_tree(tree):
             print("{} )".format(tree.child[key]))
         else :    
             print_tree(tree.child[key])
+
 if __name__ == "__main__":
     global target, class_info
     
@@ -193,39 +186,34 @@ if __name__ == "__main__":
     out = sys.argv[3]
 
     Epoches = 10
-    
+    answer_change = dict()
     train_df = pd.read_table('./train/'+train, sep='\s+')
-    train_df['car_evaluation'].replace(('unacc', 'acc', 'good', 'vgood'), (0, 1, 2, 3), inplace = True)
-    train_df['lug_boot'].replace(('small', 'med', 'big'), (0, 1, 2), inplace = True)
-    train_df['safety'].replace(('low', 'med', 'high'), (0, 1, 2), inplace = True)
-    train_df['buying'].replace(('low', 'med', 'high', 'vhigh'), (0, 1, 2, 3), inplace = True)
-    train_df['maint'].replace(('low', 'med', 'high', 'vhigh'), (0, 1, 2, 3), inplace = True)
-    train_df['doors'].replace('5more', '5', inplace = True)
-    train_df['persons'].replace('more', '5', inplace = True)
+    test_df = pd.read_table('./train/'+test, sep='\s+')
     target = train_df.columns[-1]
-   
+    
+    for col in list(train_df.columns):
+        element_list = train_df[col].unique()
+        for idx, element in enumerate(element_list):
+            train_df[col].replace(element, idx, inplace=True)
+            if col != target:
+                test_df[col].replace(element, idx, inplace=True)
+            answer_change[idx] = element
+    test_df[target] = None
+
     class_info = dict(train_df[target].value_counts())
     mean = 0
     min_error = 10000000
     for i in range(10):
         trees = []
         for idx in range(Epoches):
-            print(f"Forest {idx+1} ... ", end= "")
-            rand_df = train_df.sample(frac=1, replace=False)
+            print(f"Forest {idx+1} ... ", end= "", flush=True)
+            rand_df = train_df.sample(frac=3, replace=True)
             tree = build_tree(rand_df, None, 0)
             trees.append(tree)
             print("Done")
         
         print("Claasify ... ", end="")
-        test_df = pd.read_table('./train/'+test, sep='\s+')
-        test_df['lug_boot'].replace(('small', 'med', 'big'), (0, 1, 2), inplace = True)
-        test_df['safety'].replace(('low', 'med', 'high'), (0, 1, 2), inplace = True)
-        test_df['buying'].replace(('low', 'med', 'high', 'vhigh'), (0, 1, 2, 3), inplace = True)
-        test_df['maint'].replace(('low', 'med', 'high', 'vhigh'), (0, 1, 2, 3), inplace = True)
-        test_df['doors'].replace('5more', 5, inplace = True)
-        test_df['persons'].replace('more', 5, inplace = True)
-        test_df[target] = None
-        
+        my_ans_df = test_df.copy()
         for idx, row in test_df.iterrows():
             ans = []
             for tree in trees:
@@ -233,19 +221,19 @@ if __name__ == "__main__":
                 
             cnt = Counter(ans).most_common()
             print("{} {}".format(idx,cnt))
-            test_df[target][idx] = cnt[0][0]
+            my_ans_df[target][idx] = answer_change[cnt[0][0]]
         
         print("Done")
         
         answer_df = pd.read_table('./test/'+'dt_answer1.txt', sep='\s+')
         cnt = 0
         for idx in range(len(answer_df)):
-            if answer_df[answer_df.columns[-1]].iloc[idx] != test_df[answer_df.columns[-1]].iloc[idx]:
+            if answer_df[answer_df.columns[-1]].iloc[idx] != my_ans_df[answer_df.columns[-1]].iloc[idx]:
                 cnt += 1
                 print()
                 print(f"{idx} is wrong")
                 print("Predict")
-                print("{}".format(test_df.iloc[idx]))
+                print("{}".format(my_ans_df.iloc[idx]))
                 print("Answer {}".format(answer_df[answer_df.columns[-1]].iloc[idx]))
         
         mean += 346-cnt
@@ -255,5 +243,5 @@ if __name__ == "__main__":
         if cnt < min_error:
             min_error = cnt
             print("Save Model")
-            test_df.to_csv('./test/'+out, sep='\t')
+            my_ans_df.to_csv('./test/'+out, sep='\t')
     print(mean/10)
