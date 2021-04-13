@@ -42,7 +42,7 @@ id,car_evaluation
 40,good
 41,unacc
 42,acc
-43,unacc
+43,acc
 44,unacc
 45,acc
 46,unacc
@@ -193,7 +193,7 @@ id,car_evaluation
 191,good
 192,unacc
 193,unacc
-194,acc
+194,unacc
 195,unacc
 196,acc
 197,unacc
@@ -218,14 +218,14 @@ id,car_evaluation
 216,unacc
 217,good
 218,acc
-219,unacc
+219,acc
 220,unacc
 221,unacc
 222,acc
 223,acc
 224,unacc
 225,vgood
-226,unacc
+226,acc
 227,unacc
 228,unacc
 229,unacc

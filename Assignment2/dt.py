@@ -185,63 +185,65 @@ if __name__ == "__main__":
     test = sys.argv[2]
     out = sys.argv[3]
 
-    Epoches = 10
+    Epoches = 5
     answer_change = dict()
     train_df = pd.read_table('./train/'+train, sep='\s+')
     test_df = pd.read_table('./train/'+test, sep='\s+')
     target = train_df.columns[-1]
+    ans_trees = []
     
     for col in list(train_df.columns):
         element_list = train_df[col].unique()
         for idx, element in enumerate(element_list):
-            train_df[col].replace(element, idx, inplace=True)
+            train_df[col] = train_df[col].replace(element, idx)
             if col != target:
-                test_df[col].replace(element, idx, inplace=True)
+                test_df[col] = test_df[col].replace(element, idx)
             answer_change[idx] = element
     test_df[target] = None
 
     class_info = dict(train_df[target].value_counts())
     mean = 0
     min_error = 10000000
-    for i in range(10):
+    for epoch in range(Epoches):
+        train = train_df.sample(frac=0.85, random_state = 100)
+        valid = train_df.drop(train.index, inplace=False)
         trees = []
-        for idx in range(Epoches):
-            print(f"Forest {idx+1} ... ", end= "", flush=True)
-            rand_df = train_df.sample(frac=3, replace=True)
+        for idx in range(10):
+            print(f"{epoch+1} Epoches, Forest {idx+1} ... ", end= "", flush=True)
+            rand_df = train.sample(frac=3, replace=True)
             tree = build_tree(rand_df, None, 0)
             trees.append(tree)
             print("Done")
         
-        print("Claasify ... ", end="")
-        my_ans_df = test_df.copy()
-        for idx, row in test_df.iterrows():
+        my_valid_df = valid.drop([target], axis=1, inplace=False).copy(deep=True)
+        my_valid_df[target] = None
+        for idx, row in my_valid_df.iterrows():
             ans = []
             for tree in trees:
                 ans.append(classify(tree, row))
-                
             cnt = Counter(ans).most_common()
-            print("{} {}".format(idx,cnt))
-            my_ans_df[target][idx] = answer_change[cnt[0][0]]
+            my_valid_df[target][idx] = cnt[0][0]
         
-        print("Done")
+        wrong = 0
+        for idx in range(len(valid)):
+            if valid[valid.columns[-1]].iloc[idx] != my_valid_df[valid.columns[-1]].iloc[idx]:
+                wrong += 1
+        print("Validation Accuracy : {:.3f}".format((len(valid)-wrong)/len(valid)*100))    
         
-        answer_df = pd.read_table('./test/'+'dt_answer1.txt', sep='\s+')
-        cnt = 0
-        for idx in range(len(answer_df)):
-            if answer_df[answer_df.columns[-1]].iloc[idx] != my_ans_df[answer_df.columns[-1]].iloc[idx]:
-                cnt += 1
-                print()
-                print(f"{idx} is wrong")
-                print("Predict")
-                print("{}".format(my_ans_df.iloc[idx]))
-                print("Answer {}".format(answer_df[answer_df.columns[-1]].iloc[idx]))
-        
-        mean += 346-cnt
-        print(cnt)
-        print(346-cnt)
-        
-        if cnt < min_error:
-            min_error = cnt
+        if wrong < min_error:
+            min_error = wrong
             print("Save Model")
-            my_ans_df.to_csv('./test/'+out, sep='\t')
-    print(mean/10)
+            ans_trees = trees     
+        print()
+        
+    print("Claasify ... ", end="")
+    for idx, row in test_df.iterrows():
+        ans = []
+        for tree in ans_trees:
+            ans.append(classify(tree, row))
+            
+        cnt = Counter(ans).most_common()
+        test_df[target][idx] = answer_change[cnt[0][0]]
+        
+    test_df.to_csv('./test/'+out, sep='\t')
+    print("Done")
