@@ -3,7 +3,6 @@ import sys
 import numpy as np
 import matplotlib.pyplot as plt
 import os
-import pickle
 
 from collections import Counter, defaultdict
 
@@ -14,7 +13,7 @@ def _assign(array, cidx, classify, cur, ndict):
     global minPts
     
     nlist = ndict[cidx]
-    if len(nlist) < minPts:
+    if len(nlist) < minPts-1:
         classify[cidx] = None
         return False
     
@@ -28,7 +27,7 @@ def _assign(array, cidx, classify, cur, ndict):
             classify[nidx] = cur
             pnew_neighbor = ndict[nidx]
             
-            if len(pnew_neighbor) >= minPts:
+            if len(pnew_neighbor) >= minPts-1:
                 nlist = list(set(nlist) | set(pnew_neighbor))
     
     return True
@@ -50,7 +49,6 @@ if __name__ == "__main__":
     n_points = len(input)
     classify = [-1] * n_points
     cur_cluster = 0
-    desity_reachable = []
     
     print("Calculate Neighbor ... ", end="", flush=True)
     neighbor_list = defaultdict(list)
