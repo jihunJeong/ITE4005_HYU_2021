@@ -56,11 +56,8 @@ if __name__ == "__main__":
     loss_fn = torch.nn.MSELoss() 
     optimizer = torch.optim.SGD(model.parameters(), lr=1e-5)
 
-    ratings = np.zeros((n_users+1, n_movies+1)) 
-    for row in df_ratings.itertuples(index=False):
-        user_id, movie_id, _ = row
-        ratings[user_id, movie_id] = row[2]
-    
+    ratings = pd.pivot_table(data=df_ratings, values='rating', index='user',columns='movie')
+    print(ratings.head())
     train_loss = AverageMeter()
     users = df_ratings['user']
     movies = df_ratings['movie']
