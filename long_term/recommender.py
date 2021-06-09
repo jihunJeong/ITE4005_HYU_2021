@@ -1,9 +1,25 @@
+from numpy.lib.arraysetops import isin
 import pandas as pd
 import numpy as np
 import sys
+import os
 import math
 import torch
+import torch.nn as nn
+
 from torch.autograd import Variable
+from torch.utils.data import Dataset, DataLoader, Dataset, SubsetRandomSampler
+from sklearn.model_selection import KFold
+
+class MovieDataset(Dataset):
+    def __init__(self, dataset):
+        self.dataset = torch.from_numpy(dataset.values)
+
+    def __getitem__(self, idx):
+        return self.dataset[idx]
+
+    def __len__(self):
+        return len(self.dataset)
 
 class AverageMeter(object):
     def __init__(self):
@@ -21,74 +37,206 @@ class AverageMeter(object):
         self.count += n
         self.avg = self.sum / self.count
 
-class MatrixFactorization(torch.nn.Module):
-    def __init__(self, n_users, n_items, n_factors=20):
-        super().__init__()
-        self.user_factors = torch.nn.Embedding(n_users, n_factors,
-                                               sparse=True)
-        self.item_factors = torch.nn.Embedding(n_items, n_factors,
-                                               sparse=True)
+class MatrixFactorization(nn.Module):
+    def __init__(self, n_users, n_movies, n_factors=20):
+        super(MatrixFactorization, self).__init__()
+        self.user_factors = nn.Embedding(n_users, n_factors)
+        self.movie_factors = nn.Embedding(n_movies, n_factors)
 
-    def forward(self, user, item):
-        return (self.user_factors(user)*self.item_factors(item)).sum(1)
+        self.user_biases = nn.Embedding(n_users, 1, sparse=True)
+        self.movie_biases = nn.Embedding(n_movies, 1, sparse=True)
+        
+        self.dropout = nn.Dropout(0.2)
+        self.dropout2 = nn.Dropout(0.3)
+        self.flatten = nn.Flatten()
 
-    def predict(self, user, item):
-        return self.forward(user, item)
+        self.linear1 = nn.Linear(1, 256)
+        self.linear2 = nn.Linear(256, 512)
+        self.linear3 = nn.Linear(512, 512)
+        self.linear4 = nn.Linear(512, 64)
+        self.output = nn.Linear(64, 1)
+
+        self.relu = nn.ReLU()
+        
+        self._init_weight_()
+
+    def _init_weight_(self):
+        nn.init.normal_(self.user_factors.weight, 0, 0.1)
+        nn.init.normal_(self.movie_factors.weight, 0, 0.1)
+
+        for m in self.modules():
+            if isinstance(m, nn.Linear) and m.bias is not None:
+                m.bias.data.zero_()
+
+    def forward(self, user, movie):
+        b = self.user_biases(user)
+        b += self.movie_biases(movie)
+
+        user = torch.reshape(user, (-1, 1))
+        movie = torch.reshape(movie, (-1, 1))
+
+        user_factor = self.user_factors(user)
+        user_vec = self.flatten(user_factor)
+        user_vec = self.dropout(user_vec)
+
+        movie_factor = self.movie_factors(movie)
+        movie_vec = self.flatten(movie_factor)
+        movie_vec = self.dropout(movie_vec)
+        
+        x = ((user_vec * movie_vec).sum(dim=1, keepdim=True))
+        x = torch.reshape(x, (-1, 1))
+
+        x = self.linear1(x)
+        x = self.relu(x)
+
+        x = self.linear2(x)
+        x = self.relu(x)
+
+        x = self.linear3(x)
+        x = self.relu(x)
+
+        x = self.linear4(x)
+        x = self.relu(x)
+
+        x = self.output(x)
+        x += b
+        x = x.squeeze()
+        return x
+
+    def predict(self, user, movie):
+        return self.forward(user, movie)
 
 
 if __name__ == "__main__":
     train = sys.argv[1]
     test = sys.argv[2]
-    
+    log_dir = './model'
+    np.random.seed(42)
+
     print("Load Data ... ", end="", flush=True)
     df_ratings = pd.read_csv("./data-2/"+train, sep='\s+', names=['user','movie','rating','timestamp'])
     df_ratings.drop('timestamp', axis=1, inplace=True)
-    df_test = pd.read_csv("./data-2/"+test, sep='\s+', names=['user','movie','rating','timestamp'])
-    print("Done")
-
-    print("Matrix Factorization ... ", end="", flush=True)
-    n_users = max(df_ratings.user.unique())
-    n_movies = max(df_ratings.movie.unique())
     
-    device = torch.device('cuda:0' if torch.cuda.is_available() else 'cpu')
-    model = MatrixFactorization(n_users, n_movies, n_factors=10)
-    model.to(device)
-    loss_fn = torch.nn.MSELoss() 
-    optimizer = torch.optim.SGD(model.parameters(), lr=1e-5)
-
     ratings = pd.pivot_table(data=df_ratings, values='rating', index='user',columns='movie')
-    print(ratings.head())
-    train_loss = AverageMeter()
+    dataset = MovieDataset(df_ratings)
+
     users = df_ratings['user']
     movies = df_ratings['movie']
-    for idx, (user, movie) in enumerate(zip(users, movies)):
-        optimizer.zero_grad()
 
-        rating = Variable(torch.FloatTensor([ratings[user, movie]])).to(device)
-        user = Variable(torch.LongTensor([int(user)])).to(device)
-        movie = Variable(torch.LongTensor([int(movie)])).to(device)
+    user2idx = {user:idx for idx, user in enumerate(users.unique())}
+    movie2idx = {movie:idx for idx, movie in enumerate(movies.unique())}
+    n_users = len(df_ratings.user.unique())
+    n_movies = len(df_ratings.movie.unique())
+    print("Done")
+    
+    device = torch.device('cuda:0' if torch.cuda.is_available() else 'cpu')
+    
+    k_folds = 20
+    set_fold = 5
+    EPOCHS = 30
+    kfold = KFold(n_splits=k_folds, shuffle=True)
 
-        prediction = model(user, movie)
-        loss = loss_fn(prediction, rating)
-        loss.backward()
-        optimizer.step()
+    
+    print("Matrix Factorization ... ", flush=True)
+    for fold, (train_ids, valid_ids) in enumerate(kfold.split(dataset)):
+        if fold == set_fold:
+            break
+        train_sampler = SubsetRandomSampler(train_ids)
+        valid_sampler = SubsetRandomSampler(valid_ids)
+        
+        train_loader = DataLoader(dataset, batch_size=32, sampler=train_sampler, pin_memory=True)
+        valid_loader = DataLoader(dataset, batch_size=32, sampler=valid_sampler, pin_memory=True)
+        
+        best_rmse = 100
 
-        train_loss.update(loss.item(), 1)
-        if (idx+1) % 1000 == 0:
-            print("Index %d | Train Loss %.4f" % (idx+1, train_loss.avg))
+        model = MatrixFactorization(n_users, n_movies, n_factors=30).to(device)
+        loss_fn = nn.MSELoss() 
+        optimizer = torch.optim.SGD(model.parameters(), lr=0.1)
+        rmse = [0] * 5
 
+        for epoch in range(EPOCHS):
+            train_loss = AverageMeter()
+            valid_loss = AverageMeter()
+
+            model.train()
+            for iter, batch in enumerate(train_loader):
+                optimizer.zero_grad()
+                
+                user = batch[:,0]
+                movie = batch[:,1]
+                rating = batch[:,2].to(torch.float32).to(device)
+
+                user_ids = torch.LongTensor([user2idx[int(x)] for x in user]).to(device)
+                movie_ids = torch.LongTensor([movie2idx[int(x)] for x in movie]).to(device)
+
+                prediction = model(user_ids, movie_ids)
+                loss = loss_fn(prediction, rating)
+                loss.backward()
+                optimizer.step()
+
+                train_loss.update(loss.item(), len(batch))
+
+                if (iter+1) % 100 == 0:
+                    print("\rFolds [%d/%d] | Epochs [%d/%d] | Iter [%d/%d] | Train Loss %.4f" % (fold+1, set_fold, epoch+1, EPOCHS, iter+1, len(train_loader), train_loss.avg), end=" ")
+            
+            print("\rFolds [%d/%d] | Epochs [%d/%d] | Iter [%d/%d] | Train Loss %.4f" % (fold+1, set_fold, epoch+1, EPOCHS, iter+1, len(train_loader), train_loss.avg), end=" ")
+            model.eval()
+            for iter, batch in enumerate(valid_loader):
+                user = batch[:,0]
+                movie = batch[:,1]
+                rating = batch[:,2].to(torch.float32).to(device)
+
+                user_ids = torch.LongTensor([user2idx[int(x)] for x in user]).to(device)
+                movie_ids = torch.LongTensor([movie2idx[int(x)] for x in movie]).to(device)
+
+                with torch.no_grad():
+                    prediction = model(user_ids, movie_ids)
+                    vloss = loss_fn(prediction, rating)
+                    valid_loss.update(vloss.item(), len(batch))
+
+            print("Valid loss %.4f" % (valid_loss.avg))
+            if best_rmse > valid_loss.avg:
+                best_rmse = valid_loss.avg
+                rmse[fold] = best_rmse
+                if not os.path.exists(log_dir):
+                    os.mkdir(log_dir)
+
+                print(f"Model Save : rmse - {best_rmse}")
+                torch.save(model, f'{log_dir}/{train[:2]}_model{fold+1}.pt')
     print("Done")
 
-    print("Test ... ", end="", flush=True)
+    print("Rating ... ", flush=True)
+    df_test = pd.read_csv("./data-2/"+test, sep='\s+', names=['user','movie','rating','timestamp'])
     result_df = df_test.drop(['timestamp'], axis=1).copy()
     result_df.astype({'user':'int','movie':'int','rating':'float'})
+    result = np.zeros((len(result_df), 5))
+    for kfold in range(set_fold):
+        print("\rFold [%d/%d]"% (kfold+1, set_fold), end="", flush=True)
+        model = torch.load(log_dir+f"/{train[:2]}_model{kfold+1}.pt")
+        model.to(device)
+        model.eval()
+        for idx, row in result_df.iterrows():
+            user = row['user']
+            movie = row['movie']
+            if user not in users.unique() or movie not in movies.unique():
+                key = ratings.loc[user].notnull()
+                result[idx][kfold] = sum(ratings.loc[user, key]) / len(key)
+                continue
+        
+            u = user2idx[user]
+            m = movie2idx[movie]
+
+            u = torch.LongTensor([int(u)]).to(device)
+            m = torch.LongTensor([int(m)]).to(device)
+            result[idx][kfold] = float(model(u, m))
+    
+    div = 0
+    for i in range(set_fold):
+        div += (1/rmse[i])
     for idx, row in result_df.iterrows():
-        user = Variable(torch.LongTensor([int(row['user'])]))
-        movie = Variable(torch.LongTensor([int(row['movie'])]))
-        if user > n_users or movie > n_movies:
-            result_df.loc[idx, 'rating'] = sum(rating[int(row['user'])]) / n_movies
-        else :
-            result_df.loc[idx,'rating'] = float(model(user, movie))
-     
+        s = 0
+        for i in range(set_fold):
+            s += result[idx][i] / rmse[i]
+        result_df.loc[idx, 'rating'] = s / div
     result_df.to_csv('./test/'+train[:2]+".base_prediction.txt", sep='\t', index=False, header=False)
     print("Done")
