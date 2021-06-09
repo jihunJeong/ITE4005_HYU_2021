@@ -46,8 +46,7 @@ class MatrixFactorization(nn.Module):
         self.user_biases = nn.Embedding(n_users, 1, sparse=True)
         self.movie_biases = nn.Embedding(n_movies, 1, sparse=True)
 
-        self.dropout = nn.Dropout(0.2)
-        self.dropout2 = nn.Dropout(0.3)
+        self.dropout = nn.Dropout(0.5)
         self.flatten = nn.Flatten()
 
         self.linear1 = nn.Linear(1, 32)
@@ -91,6 +90,7 @@ class MatrixFactorization(nn.Module):
 
         x = self.linear3(x)
         x = self.relu(x)
+        x = self.dropout(x)
 
         x = self.linear4(x)
         x = self.relu(x)
@@ -130,7 +130,7 @@ if __name__ == "__main__":
     
     k_folds = 20
     set_fold = 5
-    EPOCHS = 50
+    EPOCHS = 30
     kfold = KFold(n_splits=k_folds, shuffle=True)
 
     
