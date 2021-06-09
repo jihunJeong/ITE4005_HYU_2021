@@ -40,12 +40,12 @@ class AverageMeter(object):
 class MatrixFactorization(nn.Module):
     def __init__(self, n_users, n_movies, n_factors=20):
         super(MatrixFactorization, self).__init__()
-        self.user_factors = nn.Embedding(n_users, n_factors)
-        self.movie_factors = nn.Embedding(n_movies, n_factors)
+        self.user_factors = nn.Embedding(n_users, n_factors, sparse=True)
+        self.movie_factors = nn.Embedding(n_movies, n_factors, sparse=True)
 
         self.user_biases = nn.Embedding(n_users, 1, sparse=True)
         self.movie_biases = nn.Embedding(n_movies, 1, sparse=True)
-        
+
         self.dropout = nn.Dropout(0.2)
         self.dropout2 = nn.Dropout(0.3)
         self.flatten = nn.Flatten()
@@ -56,41 +56,39 @@ class MatrixFactorization(nn.Module):
         self.linear4 = nn.Linear(64, 32)
         self.output = nn.Linear(32, 1)
 
+
         self.relu = nn.ReLU()
+        self.bn = nn.BatchNorm1d(50)
         
         self._init_weight_()
 
     def _init_weight_(self):
         nn.init.normal_(self.user_factors.weight, 0, 0.1)
         nn.init.normal_(self.movie_factors.weight, 0, 0.1)
+        nn.init.normal_(self.user_biases.weight, 0, 0.1)
+        nn.init.normal_(self.movie_biases.weight,0, 0.1)
 
         for m in self.modules():
             if isinstance(m, nn.Linear) and m.bias is not None:
                 m.bias.data.zero_()
-
+        
     def forward(self, user, movie):
         b = self.user_biases(user)
         b += self.movie_biases(movie)
 
-        user = torch.reshape(user, (-1, 1))
-        movie = torch.reshape(movie, (-1, 1))
-
         user_factor = self.user_factors(user)
-        user_vec = self.flatten(user_factor)
-        user_vec = self.dropout(user_vec)
-
         movie_factor = self.movie_factors(movie)
-        movie_vec = self.flatten(movie_factor)
-        movie_vec = self.dropout(movie_vec)
         
-        x = ((user_vec * movie_vec).sum(dim=1, keepdim=True))
+        x = ((user_factor * movie_factor).sum(dim=1, keepdim=True))
         x = torch.reshape(x, (-1, 1))
 
         x = self.linear1(x)
         x = self.relu(x)
+        x = self.dropout(x)
 
         x = self.linear2(x)
         x = self.relu(x)
+        x = self.dropout(x)
 
         x = self.linear3(x)
         x = self.relu(x)
@@ -132,8 +130,8 @@ if __name__ == "__main__":
     device = torch.device('cuda:0' if torch.cuda.is_available() else 'cpu')
     
     k_folds = 20
-    set_fold = 5
-    EPOCHS = 30
+    set_fold = 1
+    EPOCHS = 50
     kfold = KFold(n_splits=k_folds, shuffle=True)
 
     
@@ -149,9 +147,9 @@ if __name__ == "__main__":
         
         best_rmse = 100
 
-        model = MatrixFactorization(n_users, n_movies, n_factors=30).to(device)
+        model = MatrixFactorization(n_users, n_movies, n_factors=50).to(device)
         loss_fn = nn.MSELoss() 
-        optimizer = torch.optim.SGD(model.parameters(), lr=0.1)
+        optimizer = torch.optim.SGD(model.parameters(), lr=0.05)
         rmse = [0] * 5
 
         for epoch in range(EPOCHS):
