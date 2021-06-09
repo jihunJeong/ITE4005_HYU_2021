@@ -50,11 +50,11 @@ class MatrixFactorization(nn.Module):
         self.dropout2 = nn.Dropout(0.3)
         self.flatten = nn.Flatten()
 
-        self.linear1 = nn.Linear(1, 256)
-        self.linear2 = nn.Linear(256, 512)
-        self.linear3 = nn.Linear(512, 512)
-        self.linear4 = nn.Linear(512, 64)
-        self.output = nn.Linear(64, 1)
+        self.linear1 = nn.Linear(1, 32)
+        self.linear2 = nn.Linear(32, 64)
+        self.linear3 = nn.Linear(64, 64)
+        self.linear4 = nn.Linear(64, 32)
+        self.output = nn.Linear(32, 1)
 
         self.relu = nn.ReLU()
         
