@@ -130,7 +130,7 @@ if __name__ == "__main__":
     device = torch.device('cuda:0' if torch.cuda.is_available() else 'cpu')
     
     k_folds = 20
-    set_fold = 1
+    set_fold = 5
     EPOCHS = 50
     kfold = KFold(n_splits=k_folds, shuffle=True)
 
