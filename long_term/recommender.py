@@ -56,7 +56,6 @@ class MatrixFactorization(nn.Module):
         self.linear4 = nn.Linear(64, 32)
         self.output = nn.Linear(32, 1)
 
-
         self.relu = nn.ReLU()
         self.bn = nn.BatchNorm1d(50)
         
@@ -130,7 +129,7 @@ if __name__ == "__main__":
     device = torch.device('cuda:0' if torch.cuda.is_available() else 'cpu')
     
     k_folds = 20
-    set_fold = 1
+    set_fold = 5
     EPOCHS = 50
     kfold = KFold(n_splits=k_folds, shuffle=True)
 
