@@ -55,7 +55,6 @@ class MatrixFactorization(nn.Module):
         self.linear4 = nn.Linear(64, 32)
         self.output = nn.Linear(32, 1)
 
-
         self.relu = nn.ReLU()
         self.bn = nn.BatchNorm1d(50)
         
