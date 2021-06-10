@@ -11,7 +11,7 @@ from torch.autograd import Variable
 from torch.utils.data import Dataset, DataLoader, Dataset, SubsetRandomSampler
 from sklearn.model_selection import KFold
 
-class RecDataset(Dataset):
+class MovieDataset(Dataset):
     def __init__(self, dataset):
         self.dataset = torch.from_numpy(dataset.values)
 
@@ -46,7 +46,8 @@ class MatrixFactorization(nn.Module):
         self.user_biases = nn.Embedding(n_users, 1, sparse=True)
         self.movie_biases = nn.Embedding(n_movies, 1, sparse=True)
 
-        self.dropout = nn.Dropout(0.5)
+        self.dropout = nn.Dropout(0.2)
+        self.dropout2 = nn.Dropout(0.3)
         self.flatten = nn.Flatten()
 
         self.linear1 = nn.Linear(1, 32)
@@ -55,7 +56,9 @@ class MatrixFactorization(nn.Module):
         self.linear4 = nn.Linear(64, 32)
         self.output = nn.Linear(32, 1)
 
+
         self.relu = nn.ReLU()
+        self.bn = nn.BatchNorm1d(50)
         
         self._init_weight_()
 
@@ -89,7 +92,6 @@ class MatrixFactorization(nn.Module):
 
         x = self.linear3(x)
         x = self.relu(x)
-        x = self.dropout(x)
 
         x = self.linear4(x)
         x = self.relu(x)
@@ -114,7 +116,7 @@ if __name__ == "__main__":
     df_ratings.drop('timestamp', axis=1, inplace=True)
     
     ratings = pd.pivot_table(data=df_ratings, values='rating', index='user',columns='movie')
-    dataset = RecDataset(df_ratings)
+    dataset = MovieDataset(df_ratings)
 
     users = df_ratings['user']
     movies = df_ratings['movie']
@@ -128,8 +130,8 @@ if __name__ == "__main__":
     device = torch.device('cuda:0' if torch.cuda.is_available() else 'cpu')
     
     k_folds = 20
-    set_fold = 5
-    EPOCHS = 30
+    set_fold = 1
+    EPOCHS = 50
     kfold = KFold(n_splits=k_folds, shuffle=True)
 
     
