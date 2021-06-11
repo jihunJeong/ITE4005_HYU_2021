@@ -47,16 +47,7 @@ class MatrixFactorization(nn.Module):
         self.movie_biases = nn.Embedding(n_movies, 1, sparse=True)
 
         self.dropout = nn.Dropout(0.5)
-        self.flatten = nn.Flatten()
 
-        self.linear1 = nn.Linear(1, 32)
-        self.linear2 = nn.Linear(32, 64)
-        self.linear3 = nn.Linear(64, 64)
-        self.linear4 = nn.Linear(64, 32)
-        self.output = nn.Linear(32, 1)
-
-        self.relu = nn.ReLU()
-        
         self._init_weight_()
 
     def _init_weight_(self):
@@ -74,34 +65,14 @@ class MatrixFactorization(nn.Module):
         b += self.movie_biases(movie)
 
         user_factor = self.user_factors(user)
+        user_factor = self.dropout(user_factor)
         movie_factor = self.movie_factors(movie)
+        movie_factor = self.dropout(movie_factor)
         
         x = ((user_factor * movie_factor).sum(dim=1, keepdim=True))
-        x = torch.reshape(x, (-1, 1))
-
-        x = self.linear1(x)
-        x = self.relu(x)
-        x = self.dropout(x)
-
-        x = self.linear2(x)
-        x = self.relu(x)
-        x = self.dropout(x)
-
-        x = self.linear3(x)
-        x = self.relu(x)
-        x = self.dropout(x)
-
-        x = self.linear4(x)
-        x = self.relu(x)
-
-        x = self.output(x)
         x += b
         x = x.squeeze()
         return x
-
-    def predict(self, user, movie):
-        return self.forward(user, movie)
-
 
 if __name__ == "__main__":
     train = sys.argv[1]
@@ -129,7 +100,7 @@ if __name__ == "__main__":
     
     k_folds = 20
     set_fold = 5
-    EPOCHS = 30
+    EPOCHS = 50
     kfold = KFold(n_splits=k_folds, shuffle=True)
 
     
@@ -147,7 +118,7 @@ if __name__ == "__main__":
 
         model = MatrixFactorization(n_users, n_movies, n_factors=50).to(device)
         loss_fn = nn.MSELoss() 
-        optimizer = torch.optim.SGD(model.parameters(), lr=0.05)
+        optimizer = torch.optim.SGD(model.parameters(), lr=0.1)
         rmse = [0] * 5
 
         for epoch in range(EPOCHS):
