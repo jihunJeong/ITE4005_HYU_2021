@@ -102,7 +102,7 @@ if __name__ == "__main__":
     set_fold = 5
     EPOCHS = 50
     kfold = KFold(n_splits=k_folds, shuffle=True)
-
+    rmse = [0] * 5
     
     print("Matrix Factorization ... ", flush=True)
     for fold, (train_ids, valid_ids) in enumerate(kfold.split(dataset)):
@@ -119,7 +119,6 @@ if __name__ == "__main__":
         model = MatrixFactorization(n_users, n_movies, n_factors=50).to(device)
         loss_fn = nn.MSELoss() 
         optimizer = torch.optim.SGD(model.parameters(), lr=0.1)
-        rmse = [0] * 5
 
         for epoch in range(EPOCHS):
             train_loss = AverageMeter()
